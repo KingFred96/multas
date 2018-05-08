@@ -15,6 +15,7 @@ namespace Multas_tA.Api
 {
     // Controller API dos agentes.
     // Para informação sobre routing, ver o App_Start/WebApiConfig.cs
+    [RoutePrefix("api/agentes")]
     public class AgentesController : ApiController
     {
         #region Base de dados
@@ -73,6 +74,61 @@ namespace Multas_tA.Api
             // var resultado = new { ??? };
 
             return Ok(agentes);
+        }
+
+        // Uso de Attribute Routing.
+        // Attribute Routing é muito mais poderoso
+        // e flexível do que o default da Web API, que só
+        // permite operações GET/PUT/POST/DELETE no objeto "raíz".
+        // Ver WebApiConfig.cs.
+        [HttpGet, Route("{id}/multas")]
+        public IHttpActionResult GetMultasByAgente(int id)
+        {
+            // Este método "restaura" o link removido no "GetAgentes"
+            // para podermos ter uma lista de multas de um agente
+            // a partir da API.
+
+            var agente = db.Agentes.Find(id);
+
+            if (agente == null)
+            {
+                return NotFound();
+            }
+
+            // Efectivamente, estou a usar um "View Model"
+            // (excepto que não tem classe) para fins de projecção
+            // (modificação) dos dados, para prevenir referências circulares.
+            // Podia (e devia), claro, criar uma classe que representasse este View Model.
+            var resultado = agente.ListaDeMultas
+                .Select(multa => new
+                {
+                    multa.DataDaMulta,
+                    multa.ID,
+                    multa.Infracao,
+                    multa.LocalDaMulta,
+                    multa.ValorMulta,
+                    
+                    Agente = new
+                    {
+                        agente.ID,
+                        agente.Nome
+                    },
+                    Condutor = new
+                    {
+                        multa.Condutor.ID,
+                        multa.Condutor.Nome
+                    },
+                    Viatura = new
+                    {
+                        multa.Viatura.ID,
+                        multa.Viatura.Matricula,
+                        multa.Viatura.Marca,
+                        multa.Viatura.Modelo
+                    }
+                })
+                .ToList();
+
+            return Ok(resultado);
         }
 
         #endregion
