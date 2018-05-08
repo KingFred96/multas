@@ -22,6 +22,10 @@ namespace Multas_tA.Migrations
                 {
                     maxIdAgente = db.Agentes.Max(x => x.ID) + 1;
                 }
+                else
+                {
+                    throw new Exception("Não foram encontrados Agentes... Por favor, comenta o código todo deste ficheiro (Ctrl-A seguido de Ctrl-K e Ctrl-C), faz Update-Database, descomenta o código, e faz Update-Database novamente. Sorry! :(");
+                }
             }
 
             // Sequências são uma forma atómica de obter números a partir de uma BD.
