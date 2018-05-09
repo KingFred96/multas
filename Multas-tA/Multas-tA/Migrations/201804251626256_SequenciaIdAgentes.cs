@@ -37,7 +37,7 @@ namespace Multas_tA.Migrations
             // quando se quer fazer uma query SQL, especialmente se os valores são user-provided!!!!
             Sql(@"Create Sequence [dbo].[SeqIdAgente] As Int Start With " + maxIdAgente + ";");
         }
-        
+
         // Se se fizer rollback a esta migração, apagar a sequência criada no upgrade (Up)
         public override void Down()
         {
