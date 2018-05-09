@@ -24,7 +24,7 @@ namespace Multas_tA.Migrations
                 }
                 else
                 {
-                    throw new Exception("Não foram encontrados Agentes... Por favor, comenta o código todo deste ficheiro (Ctrl-A seguido de Ctrl-K e Ctrl-C), faz Update-Database, descomenta o código, e faz Update-Database novamente. Sorry! :(");
+                    throw new Exception("Não foram encontrados Agentes...\n\nPor favor, comenta o código todo deste ficheiro (está na pasta das Migrations, Ctrl-A seguido de Ctrl-K e Ctrl-C), faz Update-Database, descomenta o código, e faz Update-Database novamente.\n\nSorry! :(\n\n-André Carvalho");
                 }
             }
 
