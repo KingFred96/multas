@@ -186,6 +186,7 @@
     <Content Include="Views\Multas\Edit.cshtml" />
     <Content Include="Views\Multas\Index.cshtml" />
     <Content Include="Views\Multas\_Form.cshtml" />
+    <Content Include="Views\Agentes\AgenteErro.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

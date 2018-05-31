@@ -46,11 +46,15 @@ namespace Multas_tA.Controllers
             // protege a execução do método contra a Não existencia de dados
             if (id == null)
             {
+
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
                 // ou não foi introduzido um ID válido,
                 // ou foi introduzido um valor completamente errado
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+
+                ViewBag.MensagemErro = "O link para o Agente não é válido.";
+                return View("AgenteErro");
             }
 
             // vai procurar o Agente cujo ID foi fornecido
@@ -60,7 +64,10 @@ namespace Multas_tA.Controllers
             if (agente == null)
             {
                 // return HttpNotFound();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+
+                ViewBag.MensagemErro = "Este Agente não existe, ou não tem permissão para ver os seus dados.";
+                return View("AgenteErro");
             }
 
             // envia para a View os dados do Agente
